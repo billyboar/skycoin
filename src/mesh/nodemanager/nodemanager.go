@@ -281,6 +281,16 @@ func (self *NodeManager) ConnectNodeRandomly(index1 int) int {
 	return index2
 }
 
+func (self *NodeManager) Subscribe(target cipher.PubKey, source cipher.PubKey) error {
+	config := domain.NodeConfig{}
+	node, err := mesh.NewNode(config)
+	if err != nil {
+		return err
+	}
+	self.NodesList[target] = node
+	return nil
+}
+
 // Create routes from a node
 func (self *NodeManager) BuildRoutes() {
 	self.Routes = make(map[RouteKey]Route)
